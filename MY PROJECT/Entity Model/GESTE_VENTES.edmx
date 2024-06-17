@@ -1,0 +1,595 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GEST_VENTEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="id_catégorie" />
+          </Key>
+          <Property Name="id_catégorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_catégorie" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom_client" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="30" />
+          <Property Name="telephone" Type="varchar" MaxLength="30" />
+          <Property Name="CIN" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Adresse" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="ville" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="image_client" Type="image" />
+        </EntityType>
+        <EntityType Name="Commande_Client">
+          <Key>
+            <PropertyRef Name="ID_CMD" />
+          </Key>
+          <Property Name="ID_CMD" Type="int" Nullable="false" />
+          <Property Name="ID_CLIENT" Type="int" />
+          <Property Name="DATE_CMD" Type="date" />
+        </EntityType>
+        <EntityType Name="Commande_FOURNISSEUR">
+          <Key>
+            <PropertyRef Name="ID_CMD_FRNS" />
+          </Key>
+          <Property Name="ID_CMD_FRNS" Type="int" Nullable="false" />
+          <Property Name="ID_FOURNISS" Type="int" />
+          <Property Name="DATE_CMD" Type="date" />
+        </EntityType>
+        <EntityType Name="DETAIL_CMD_CLIENT">
+          <Key>
+            <PropertyRef Name="ID_PRODUIT" />
+            <PropertyRef Name="ID_CMD" />
+          </Key>
+          <Property Name="ID_PRODUIT" Type="int" Nullable="false" />
+          <Property Name="ID_CMD" Type="int" Nullable="false" />
+          <Property Name="QUANTITE" Type="int" />
+          <Property Name="PRICE" Type="money" />
+        </EntityType>
+        <EntityType Name="DETAIL_CMD_FOURNISS">
+          <Key>
+            <PropertyRef Name="ID_PRODUIT" />
+            <PropertyRef Name="ID_CMD_FRNS" />
+          </Key>
+          <Property Name="ID_PRODUIT" Type="int" Nullable="false" />
+          <Property Name="ID_CMD_FRNS" Type="int" Nullable="false" />
+          <Property Name="QUANTITE" Type="int" />
+          <Property Name="PRICE" Type="money" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="id_Fournisseur" />
+          </Key>
+          <Property Name="id_Fournisseur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom_Fourniss" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adresse_fournisseur" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email_Fournisseur" Type="varchar" MaxLength="30" />
+          <Property Name="pays" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="telephone_Fournisseur" Type="varchar" MaxLength="30" />
+          <Property Name="CIN_Fournisseur" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="image_Fournisseur" Type="image" />
+        </EntityType>
+        <EntityType Name="Loginn">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="passwoord" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NAME_SECURE" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="id_Produit" />
+          </Key>
+          <Property Name="id_Produit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom_Produit" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Prix_achat" Type="money" Nullable="false" />
+          <Property Name="Prix_vent" Type="money" Nullable="false" />
+          <Property Name="Quantite_Produit_stock" Type="float" />
+          <Property Name="id_catégorie" Type="int" />
+          <Property Name="Photo_produit" Type="image" />
+        </EntityType>
+        <Association Name="fk_categorie">
+          <End Role="Categorie" Type="Self.Categorie" Multiplicity="0..1" />
+          <End Role="Produit" Type="Self.Produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="id_catégorie" />
+            </Principal>
+            <Dependent Role="Produit">
+              <PropertyRef Name="id_catégorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENT">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Commande_Client" Type="Self.Commande_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Commande_Client">
+              <PropertyRef Name="ID_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMANDE">
+          <End Role="Commande_Client" Type="Self.Commande_Client" Multiplicity="1" />
+          <End Role="DETAIL_CMD_CLIENT" Type="Self.DETAIL_CMD_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commande_Client">
+              <PropertyRef Name="ID_CMD" />
+            </Principal>
+            <Dependent Role="DETAIL_CMD_CLIENT">
+              <PropertyRef Name="ID_CMD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMANDE_fournisse">
+          <End Role="Commande_FOURNISSEUR" Type="Self.Commande_FOURNISSEUR" Multiplicity="1" />
+          <End Role="DETAIL_CMD_FOURNISS" Type="Self.DETAIL_CMD_FOURNISS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commande_FOURNISSEUR">
+              <PropertyRef Name="ID_CMD_FRNS" />
+            </Principal>
+            <Dependent Role="DETAIL_CMD_FOURNISS">
+              <PropertyRef Name="ID_CMD_FRNS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fourniss">
+          <End Role="Fournisseur" Type="Self.Fournisseur" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Commande_FOURNISSEUR" Type="Self.Commande_FOURNISSEUR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fournisseur">
+              <PropertyRef Name="id_Fournisseur" />
+            </Principal>
+            <Dependent Role="Commande_FOURNISSEUR">
+              <PropertyRef Name="ID_FOURNISS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUIT">
+          <End Role="Produit" Type="Self.Produit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETAIL_CMD_CLIENT" Type="Self.DETAIL_CMD_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produit">
+              <PropertyRef Name="id_Produit" />
+            </Principal>
+            <Dependent Role="DETAIL_CMD_CLIENT">
+              <PropertyRef Name="ID_PRODUIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUIT_FRNS">
+          <End Role="Produit" Type="Self.Produit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETAIL_CMD_FOURNISS" Type="Self.DETAIL_CMD_FOURNISS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produit">
+              <PropertyRef Name="id_Produit" />
+            </Principal>
+            <Dependent Role="DETAIL_CMD_FOURNISS">
+              <PropertyRef Name="ID_PRODUIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GEST_VENTEModelStoreContainer">
+          <EntitySet Name="Categorie" EntityType="Self.Categorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commande_Client" EntityType="Self.Commande_Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commande_FOURNISSEUR" EntityType="Self.Commande_FOURNISSEUR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETAIL_CMD_CLIENT" EntityType="Self.DETAIL_CMD_CLIENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETAIL_CMD_FOURNISS" EntityType="Self.DETAIL_CMD_FOURNISS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fournisseur" EntityType="Self.Fournisseur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loginn" EntityType="Self.Loginn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produit" EntityType="Self.Produit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_categorie" Association="Self.fk_categorie">
+            <End Role="Categorie" EntitySet="Categorie" />
+            <End Role="Produit" EntitySet="Produit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENT" Association="Self.FK_CLIENT">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Commande_Client" EntitySet="Commande_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMANDE" Association="Self.FK_COMMANDE">
+            <End Role="Commande_Client" EntitySet="Commande_Client" />
+            <End Role="DETAIL_CMD_CLIENT" EntitySet="DETAIL_CMD_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMANDE_fournisse" Association="Self.FK_COMMANDE_fournisse">
+            <End Role="Commande_FOURNISSEUR" EntitySet="Commande_FOURNISSEUR" />
+            <End Role="DETAIL_CMD_FOURNISS" EntitySet="DETAIL_CMD_FOURNISS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fourniss" Association="Self.FK_fourniss">
+            <End Role="Fournisseur" EntitySet="Fournisseur" />
+            <End Role="Commande_FOURNISSEUR" EntitySet="Commande_FOURNISSEUR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUIT" Association="Self.FK_PRODUIT">
+            <End Role="Produit" EntitySet="Produit" />
+            <End Role="DETAIL_CMD_CLIENT" EntitySet="DETAIL_CMD_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUIT_FRNS" Association="Self.FK_PRODUIT_FRNS">
+            <End Role="Produit" EntitySet="Produit" />
+            <End Role="DETAIL_CMD_FOURNISS" EntitySet="DETAIL_CMD_FOURNISS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GEST_VENTEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="id_catégorie" />
+          </Key>
+          <Property Name="id_catégorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_catégorie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Produits" Relationship="Self.fk_categorie" FromRole="Categorie" ToRole="Produit" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_client" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CIN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ville" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="image_client" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Commande_Client" Relationship="Self.FK_CLIENT" FromRole="Client" ToRole="Commande_Client" />
+        </EntityType>
+        <EntityType Name="Commande_Client">
+          <Key>
+            <PropertyRef Name="ID_CMD" />
+          </Key>
+          <Property Name="ID_CMD" Type="Int32" Nullable="false" />
+          <Property Name="ID_CLIENT" Type="Int32" />
+          <Property Name="DATE_CMD" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_CLIENT" FromRole="Commande_Client" ToRole="Client" />
+          <NavigationProperty Name="DETAIL_CMD_CLIENT" Relationship="Self.FK_COMMANDE" FromRole="Commande_Client" ToRole="DETAIL_CMD_CLIENT" />
+        </EntityType>
+        <EntityType Name="Commande_FOURNISSEUR">
+          <Key>
+            <PropertyRef Name="ID_CMD_FRNS" />
+          </Key>
+          <Property Name="ID_CMD_FRNS" Type="Int32" Nullable="false" />
+          <Property Name="ID_FOURNISS" Type="Int32" />
+          <Property Name="DATE_CMD" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DETAIL_CMD_FOURNISS" Relationship="Self.FK_COMMANDE_fournisse" FromRole="Commande_FOURNISSEUR" ToRole="DETAIL_CMD_FOURNISS" />
+          <NavigationProperty Name="Fournisseur" Relationship="Self.FK_fourniss" FromRole="Commande_FOURNISSEUR" ToRole="Fournisseur" />
+        </EntityType>
+        <EntityType Name="DETAIL_CMD_CLIENT">
+          <Key>
+            <PropertyRef Name="ID_PRODUIT" />
+            <PropertyRef Name="ID_CMD" />
+          </Key>
+          <Property Name="ID_PRODUIT" Type="Int32" Nullable="false" />
+          <Property Name="ID_CMD" Type="Int32" Nullable="false" />
+          <Property Name="QUANTITE" Type="Int32" />
+          <Property Name="PRICE" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Commande_Client" Relationship="Self.FK_COMMANDE" FromRole="DETAIL_CMD_CLIENT" ToRole="Commande_Client" />
+          <NavigationProperty Name="Produit" Relationship="Self.FK_PRODUIT" FromRole="DETAIL_CMD_CLIENT" ToRole="Produit" />
+        </EntityType>
+        <EntityType Name="DETAIL_CMD_FOURNISS">
+          <Key>
+            <PropertyRef Name="ID_PRODUIT" />
+            <PropertyRef Name="ID_CMD_FRNS" />
+          </Key>
+          <Property Name="ID_PRODUIT" Type="Int32" Nullable="false" />
+          <Property Name="ID_CMD_FRNS" Type="Int32" Nullable="false" />
+          <Property Name="QUANTITE" Type="Int32" />
+          <Property Name="PRICE" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="Commande_FOURNISSEUR" Relationship="Self.FK_COMMANDE_fournisse" FromRole="DETAIL_CMD_FOURNISS" ToRole="Commande_FOURNISSEUR" />
+          <NavigationProperty Name="Produit" Relationship="Self.FK_PRODUIT_FRNS" FromRole="DETAIL_CMD_FOURNISS" ToRole="Produit" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="id_Fournisseur" />
+          </Key>
+          <Property Name="id_Fournisseur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_Fourniss" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="adresse_fournisseur" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_Fournisseur" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="pays" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telephone_Fournisseur" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CIN_Fournisseur" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="image_Fournisseur" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Commande_FOURNISSEUR" Relationship="Self.FK_fourniss" FromRole="Fournisseur" ToRole="Commande_FOURNISSEUR" />
+        </EntityType>
+        <EntityType Name="Loginn">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwoord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME_SECURE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="id_Produit" />
+          </Key>
+          <Property Name="id_Produit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_Produit" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prix_achat" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Prix_vent" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantite_Produit_stock" Type="Double" />
+          <Property Name="id_catégorie" Type="Int32" />
+          <Property Name="Photo_produit" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Categorie" Relationship="Self.fk_categorie" FromRole="Produit" ToRole="Categorie" />
+          <NavigationProperty Name="DETAIL_CMD_CLIENT" Relationship="Self.FK_PRODUIT" FromRole="Produit" ToRole="DETAIL_CMD_CLIENT" />
+          <NavigationProperty Name="DETAIL_CMD_FOURNISS" Relationship="Self.FK_PRODUIT_FRNS" FromRole="Produit" ToRole="DETAIL_CMD_FOURNISS" />
+        </EntityType>
+        <Association Name="fk_categorie">
+          <End Role="Categorie" Type="Self.Categorie" Multiplicity="0..1" />
+          <End Role="Produit" Type="Self.Produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="id_catégorie" />
+            </Principal>
+            <Dependent Role="Produit">
+              <PropertyRef Name="id_catégorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENT">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Commande_Client" Type="Self.Commande_Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="id_client" />
+            </Principal>
+            <Dependent Role="Commande_Client">
+              <PropertyRef Name="ID_CLIENT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMANDE">
+          <End Role="Commande_Client" Type="Self.Commande_Client" Multiplicity="1" />
+          <End Role="DETAIL_CMD_CLIENT" Type="Self.DETAIL_CMD_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commande_Client">
+              <PropertyRef Name="ID_CMD" />
+            </Principal>
+            <Dependent Role="DETAIL_CMD_CLIENT">
+              <PropertyRef Name="ID_CMD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COMMANDE_fournisse">
+          <End Role="Commande_FOURNISSEUR" Type="Self.Commande_FOURNISSEUR" Multiplicity="1" />
+          <End Role="DETAIL_CMD_FOURNISS" Type="Self.DETAIL_CMD_FOURNISS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Commande_FOURNISSEUR">
+              <PropertyRef Name="ID_CMD_FRNS" />
+            </Principal>
+            <Dependent Role="DETAIL_CMD_FOURNISS">
+              <PropertyRef Name="ID_CMD_FRNS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fourniss">
+          <End Role="Fournisseur" Type="Self.Fournisseur" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Commande_FOURNISSEUR" Type="Self.Commande_FOURNISSEUR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fournisseur">
+              <PropertyRef Name="id_Fournisseur" />
+            </Principal>
+            <Dependent Role="Commande_FOURNISSEUR">
+              <PropertyRef Name="ID_FOURNISS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUIT">
+          <End Role="Produit" Type="Self.Produit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETAIL_CMD_CLIENT" Type="Self.DETAIL_CMD_CLIENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produit">
+              <PropertyRef Name="id_Produit" />
+            </Principal>
+            <Dependent Role="DETAIL_CMD_CLIENT">
+              <PropertyRef Name="ID_PRODUIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUIT_FRNS">
+          <End Role="Produit" Type="Self.Produit" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETAIL_CMD_FOURNISS" Type="Self.DETAIL_CMD_FOURNISS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produit">
+              <PropertyRef Name="id_Produit" />
+            </Principal>
+            <Dependent Role="DETAIL_CMD_FOURNISS">
+              <PropertyRef Name="ID_PRODUIT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GEST_VENTE_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Categorie" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Commande_Client" EntityType="Self.Commande_Client" />
+          <EntitySet Name="Commande_FOURNISSEUR" EntityType="Self.Commande_FOURNISSEUR" />
+          <EntitySet Name="DETAIL_CMD_CLIENT" EntityType="Self.DETAIL_CMD_CLIENT" />
+          <EntitySet Name="DETAIL_CMD_FOURNISS" EntityType="Self.DETAIL_CMD_FOURNISS" />
+          <EntitySet Name="Fournisseurs" EntityType="Self.Fournisseur" />
+          <EntitySet Name="Loginns" EntityType="Self.Loginn" />
+          <EntitySet Name="Produits" EntityType="Self.Produit" />
+          <AssociationSet Name="fk_categorie" Association="Self.fk_categorie">
+            <End Role="Categorie" EntitySet="Categories" />
+            <End Role="Produit" EntitySet="Produits" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENT" Association="Self.FK_CLIENT">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Commande_Client" EntitySet="Commande_Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMANDE" Association="Self.FK_COMMANDE">
+            <End Role="Commande_Client" EntitySet="Commande_Client" />
+            <End Role="DETAIL_CMD_CLIENT" EntitySet="DETAIL_CMD_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COMMANDE_fournisse" Association="Self.FK_COMMANDE_fournisse">
+            <End Role="Commande_FOURNISSEUR" EntitySet="Commande_FOURNISSEUR" />
+            <End Role="DETAIL_CMD_FOURNISS" EntitySet="DETAIL_CMD_FOURNISS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fourniss" Association="Self.FK_fourniss">
+            <End Role="Fournisseur" EntitySet="Fournisseurs" />
+            <End Role="Commande_FOURNISSEUR" EntitySet="Commande_FOURNISSEUR" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUIT" Association="Self.FK_PRODUIT">
+            <End Role="Produit" EntitySet="Produits" />
+            <End Role="DETAIL_CMD_CLIENT" EntitySet="DETAIL_CMD_CLIENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUIT_FRNS" Association="Self.FK_PRODUIT_FRNS">
+            <End Role="Produit" EntitySet="Produits" />
+            <End Role="DETAIL_CMD_FOURNISS" EntitySet="DETAIL_CMD_FOURNISS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GEST_VENTEModelStoreContainer" CdmEntityContainer="GEST_VENTE_Entities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Categorie">
+              <MappingFragment StoreEntitySet="Categorie">
+                <ScalarProperty Name="id_catégorie" ColumnName="id_catégorie" />
+                <ScalarProperty Name="nom_catégorie" ColumnName="nom_catégorie" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="Nom_client" ColumnName="Nom_client" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="CIN" ColumnName="CIN" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="ville" ColumnName="ville" />
+                <ScalarProperty Name="image_client" ColumnName="image_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commande_Client">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Commande_Client">
+              <MappingFragment StoreEntitySet="Commande_Client">
+                <ScalarProperty Name="ID_CMD" ColumnName="ID_CMD" />
+                <ScalarProperty Name="ID_CLIENT" ColumnName="ID_CLIENT" />
+                <ScalarProperty Name="DATE_CMD" ColumnName="DATE_CMD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commande_FOURNISSEUR">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Commande_FOURNISSEUR">
+              <MappingFragment StoreEntitySet="Commande_FOURNISSEUR">
+                <ScalarProperty Name="ID_CMD_FRNS" ColumnName="ID_CMD_FRNS" />
+                <ScalarProperty Name="ID_FOURNISS" ColumnName="ID_FOURNISS" />
+                <ScalarProperty Name="DATE_CMD" ColumnName="DATE_CMD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETAIL_CMD_CLIENT">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.DETAIL_CMD_CLIENT">
+              <MappingFragment StoreEntitySet="DETAIL_CMD_CLIENT">
+                <ScalarProperty Name="ID_PRODUIT" ColumnName="ID_PRODUIT" />
+                <ScalarProperty Name="ID_CMD" ColumnName="ID_CMD" />
+                <ScalarProperty Name="QUANTITE" ColumnName="QUANTITE" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETAIL_CMD_FOURNISS">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.DETAIL_CMD_FOURNISS">
+              <MappingFragment StoreEntitySet="DETAIL_CMD_FOURNISS">
+                <ScalarProperty Name="ID_PRODUIT" ColumnName="ID_PRODUIT" />
+                <ScalarProperty Name="ID_CMD_FRNS" ColumnName="ID_CMD_FRNS" />
+                <ScalarProperty Name="QUANTITE" ColumnName="QUANTITE" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fournisseurs">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Fournisseur">
+              <MappingFragment StoreEntitySet="Fournisseur">
+                <ScalarProperty Name="id_Fournisseur" ColumnName="id_Fournisseur" />
+                <ScalarProperty Name="Nom_Fourniss" ColumnName="Nom_Fourniss" />
+                <ScalarProperty Name="adresse_fournisseur" ColumnName="adresse_fournisseur" />
+                <ScalarProperty Name="email_Fournisseur" ColumnName="email_Fournisseur" />
+                <ScalarProperty Name="pays" ColumnName="pays" />
+                <ScalarProperty Name="telephone_Fournisseur" ColumnName="telephone_Fournisseur" />
+                <ScalarProperty Name="CIN_Fournisseur" ColumnName="CIN_Fournisseur" />
+                <ScalarProperty Name="image_Fournisseur" ColumnName="image_Fournisseur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loginns">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Loginn">
+              <MappingFragment StoreEntitySet="Loginn">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="passwoord" ColumnName="passwoord" />
+                <ScalarProperty Name="NAME_SECURE" ColumnName="NAME_SECURE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produits">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Produit">
+              <MappingFragment StoreEntitySet="Produit">
+                <ScalarProperty Name="id_Produit" ColumnName="id_Produit" />
+                <ScalarProperty Name="Nom_Produit" ColumnName="Nom_Produit" />
+                <ScalarProperty Name="Prix_achat" ColumnName="Prix_achat" />
+                <ScalarProperty Name="Prix_vent" ColumnName="Prix_vent" />
+                <ScalarProperty Name="Quantite_Produit_stock" ColumnName="Quantite_Produit_stock" />
+                <ScalarProperty Name="id_catégorie" ColumnName="id_catégorie" />
+                <ScalarProperty Name="Photo_produit" ColumnName="Photo_produit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

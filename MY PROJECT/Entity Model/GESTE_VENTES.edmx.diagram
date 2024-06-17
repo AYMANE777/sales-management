@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4ed527ee2f8343249e2c021f505f6207" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="GEST_VENTEModel.Categorie" Width="1.5" PointX="0.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GEST_VENTEModel.Client" Width="1.5" PointX="8.375" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GEST_VENTEModel.Commande_Client" Width="1.5" PointX="3.375" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GEST_VENTEModel.Commande_FOURNISSEUR" Width="1.5" PointX="7" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GEST_VENTEModel.DETAIL_CMD_CLIENT" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GEST_VENTEModel.DETAIL_CMD_FOURNISS" Width="1.5" PointX="5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GEST_VENTEModel.Fournisseur" Width="1.5" PointX="9.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GEST_VENTEModel.Loginn" Width="1.5" PointX="6.5" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="GEST_VENTEModel.Produit" Width="1.5" PointX="3" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="GEST_VENTEModel.fk_categorie" ManuallyRouted="false" />
+        <AssociationConnector Association="GEST_VENTEModel.FK_CLIENT" ManuallyRouted="false" />
+        <AssociationConnector Association="GEST_VENTEModel.FK_COMMANDE" ManuallyRouted="false" />
+        <AssociationConnector Association="GEST_VENTEModel.FK_COMMANDE_fournisse" ManuallyRouted="false" />
+        <AssociationConnector Association="GEST_VENTEModel.FK_fourniss" ManuallyRouted="false" />
+        <AssociationConnector Association="GEST_VENTEModel.FK_PRODUIT" ManuallyRouted="false" />
+        <AssociationConnector Association="GEST_VENTEModel.FK_PRODUIT_FRNS" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GEST_VENTEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="id_catégorie" />
+          </Key>
+          <Property Name="id_catégorie" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_catégorie" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom_client" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="30" />
+          <Property Name="telephone" Type="varchar" MaxLength="30" />
+          <Property Name="CIN" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Adresse" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="ville" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="image_client" Type="image" />
+        </EntityType>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="id_Fournisseur" />
+          </Key>
+          <Property Name="id_Fournisseur" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom_Fourniss" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="adresse_fournisseur" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="email_Fournisseur" Type="varchar" MaxLength="30" />
+          <Property Name="pays" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="telephone_Fournisseur" Type="varchar" MaxLength="30" />
+          <Property Name="CIN_Fournisseur" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="image_Fournisseur" Type="image" />
+        </EntityType>
+        <EntityType Name="Loginn">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="passwoord" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NAME_SECURE" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="id_Produit" />
+          </Key>
+          <Property Name="id_Produit" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nom_Produit" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Prix_achat" Type="float" Nullable="false" />
+          <Property Name="Prix_vent" Type="float" Nullable="false" />
+          <Property Name="Quantite_Produit_stock" Type="float" />
+          <Property Name="id_catégorie" Type="int" />
+          <Property Name="Photo_produit" Type="image" />
+        </EntityType>
+        <Association Name="fk_categorie">
+          <End Role="Categorie" Type="Self.Categorie" Multiplicity="0..1" />
+          <End Role="Produit" Type="Self.Produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="id_catégorie" />
+            </Principal>
+            <Dependent Role="Produit">
+              <PropertyRef Name="id_catégorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GEST_VENTEModelStoreContainer">
+          <EntitySet Name="Categorie" EntityType="Self.Categorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fournisseur" EntityType="Self.Fournisseur" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Loginn" EntityType="Self.Loginn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produit" EntityType="Self.Produit" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_categorie" Association="Self.fk_categorie">
+            <End Role="Categorie" EntitySet="Categorie" />
+            <End Role="Produit" EntitySet="Produit" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GEST_VENTEModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categorie">
+          <Key>
+            <PropertyRef Name="id_catégorie" />
+          </Key>
+          <Property Name="id_catégorie" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_catégorie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Produits" Relationship="Self.fk_categorie" FromRole="Categorie" ToRole="Produit" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="id_client" />
+          </Key>
+          <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_client" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CIN" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Adresse" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ville" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="image_client" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Loginn">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="passwoord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME_SECURE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Produit">
+          <Key>
+            <PropertyRef Name="id_Produit" />
+          </Key>
+          <Property Name="id_Produit" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_Produit" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Prix_achat" Type="Double" Nullable="false" />
+          <Property Name="Prix_vent" Type="Double" Nullable="false" />
+          <Property Name="Quantite_Produit_stock" Type="Double" />
+          <Property Name="id_catégorie" Type="Int32" />
+          <Property Name="Photo_produit" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Categorie" Relationship="Self.fk_categorie" FromRole="Produit" ToRole="Categorie" />
+        </EntityType>
+        <Association Name="fk_categorie">
+          <End Role="Categorie" Type="Self.Categorie" Multiplicity="0..1" />
+          <End Role="Produit" Type="Self.Produit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorie">
+              <PropertyRef Name="id_catégorie" />
+            </Principal>
+            <Dependent Role="Produit">
+              <PropertyRef Name="id_catégorie" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GEST_VENTEEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Categorie" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Loginns" EntityType="Self.Loginn" />
+          <EntitySet Name="Produits" EntityType="Self.Produit" />
+          <AssociationSet Name="fk_categorie" Association="Self.fk_categorie">
+            <End Role="Categorie" EntitySet="Categories" />
+            <End Role="Produit" EntitySet="Produits" />
+          </AssociationSet>
+          <EntitySet Name="Fournisseurs" EntityType="GEST_VENTEModel.Fournisseur" />
+        </EntityContainer>
+        <EntityType Name="Fournisseur">
+          <Key>
+            <PropertyRef Name="id_Fournisseur" />
+          </Key>
+          <Property Name="id_Fournisseur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nom_Fourniss" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="adresse_fournisseur" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="email_Fournisseur" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="pays" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="telephone_Fournisseur" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CIN_Fournisseur" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="image_Fournisseur" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GEST_VENTEModelStoreContainer" CdmEntityContainer="GEST_VENTEEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Categorie">
+              <MappingFragment StoreEntitySet="Categorie">
+                <ScalarProperty Name="id_catégorie" ColumnName="id_catégorie" />
+                <ScalarProperty Name="nom_catégorie" ColumnName="nom_catégorie" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="id_client" ColumnName="id_client" />
+                <ScalarProperty Name="Nom_client" ColumnName="Nom_client" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="CIN" ColumnName="CIN" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="ville" ColumnName="ville" />
+                <ScalarProperty Name="image_client" ColumnName="image_client" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Loginns">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Loginn">
+              <MappingFragment StoreEntitySet="Loginn">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="passwoord" ColumnName="passwoord" />
+                <ScalarProperty Name="NAME_SECURE" ColumnName="NAME_SECURE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produits">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Produit">
+              <MappingFragment StoreEntitySet="Produit">
+                <ScalarProperty Name="id_Produit" ColumnName="id_Produit" />
+                <ScalarProperty Name="Nom_Produit" ColumnName="Nom_Produit" />
+                <ScalarProperty Name="Prix_achat" ColumnName="Prix_achat" />
+                <ScalarProperty Name="Prix_vent" ColumnName="Prix_vent" />
+                <ScalarProperty Name="Quantite_Produit_stock" ColumnName="Quantite_Produit_stock" />
+                <ScalarProperty Name="id_catégorie" ColumnName="id_catégorie" />
+                <ScalarProperty Name="Photo_produit" ColumnName="Photo_produit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fournisseurs">
+            <EntityTypeMapping TypeName="GEST_VENTEModel.Fournisseur">
+              <MappingFragment StoreEntitySet="Fournisseur">
+                <ScalarProperty Name="image_Fournisseur" ColumnName="image_Fournisseur" />
+                <ScalarProperty Name="CIN_Fournisseur" ColumnName="CIN_Fournisseur" />
+                <ScalarProperty Name="telephone_Fournisseur" ColumnName="telephone_Fournisseur" />
+                <ScalarProperty Name="pays" ColumnName="pays" />
+                <ScalarProperty Name="email_Fournisseur" ColumnName="email_Fournisseur" />
+                <ScalarProperty Name="adresse_fournisseur" ColumnName="adresse_fournisseur" />
+                <ScalarProperty Name="Nom_Fourniss" ColumnName="Nom_Fourniss" />
+                <ScalarProperty Name="id_Fournisseur" ColumnName="id_Fournisseur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

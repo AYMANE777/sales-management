@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GEST_VENTEDataSet" targetNamespace="http://tempuri.org/GEST_VENTEDataSet.xsd" xmlns:mstns="http://tempuri.org/GEST_VENTEDataSet.xsd" xmlns="http://tempuri.org/GEST_VENTEDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="GEST_VENTEConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="GEST_VENTEConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.MY_PROJECT.Properties.Settings.GlobalReference.Default.GEST_VENTEConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Top_Produit_VenduTableAdapter" GeneratorDataComponentClassName="Top_Produit_VenduTableAdapter" Name="Top_Produit_Vendu" UserDataComponentName="Top_Produit_VenduTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="GEST_VENTEConnectionString (Settings)" DbObjectName="GEST_VENTE.dbo.Produit" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        SUM(DETAIL_CMD_CLIENT.QUANTITE) AS Total, Produit.Nom_Produit
+FROM            DETAIL_CMD_CLIENT INNER JOIN
+                         Produit ON DETAIL_CMD_CLIENT.ID_PRODUIT = Produit.id_Produit
+GROUP BY Produit.Nom_Produit</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+              <Mapping SourceColumn="Nom_Produit" DataSetColumn="Nom_Produit" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="Top_Produit_Acheter_FRNSTableAdapter" GeneratorDataComponentClassName="Top_Produit_Acheter_FRNSTableAdapter" Name="Top_Produit_Acheter_FRNS" UserDataComponentName="Top_Produit_Acheter_FRNSTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="GEST_VENTEConnectionString (Settings)" DbObjectName="GEST_VENTE.dbo.Produit" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT        Produit.Nom_Produit, SUM(DETAIL_CMD_FOURNISS.QUANTITE) AS Total
+FROM            Produit INNER JOIN
+                         DETAIL_CMD_FOURNISS ON Produit.id_Produit = DETAIL_CMD_FOURNISS.ID_PRODUIT
+GROUP BY Produit.Nom_Produit</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Nom_Produit" DataSetColumn="Nom_Produit" />
+              <Mapping SourceColumn="Total" DataSetColumn="Total" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="GEST_VENTEDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="GEST_VENTEDataSet" msprop:Generator_UserDSName="GEST_VENTEDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Top_Produit_Vendu" msprop:Generator_TableClassName="Top_Produit_VenduDataTable" msprop:Generator_TableVarName="tableTop_Produit_Vendu" msprop:Generator_TablePropName="Top_Produit_Vendu" msprop:Generator_RowDeletingName="Top_Produit_VenduRowDeleting" msprop:Generator_RowChangingName="Top_Produit_VenduRowChanging" msprop:Generator_RowEvHandlerName="Top_Produit_VenduRowChangeEventHandler" msprop:Generator_RowDeletedName="Top_Produit_VenduRowDeleted" msprop:Generator_UserTableName="Top_Produit_Vendu" msprop:Generator_RowChangedName="Top_Produit_VenduRowChanged" msprop:Generator_RowEvArgName="Top_Produit_VenduRowChangeEvent" msprop:Generator_RowClassName="Top_Produit_VenduRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:int" minOccurs="0" />
+              <xs:element name="Nom_Produit" msprop:Generator_ColumnVarNameInTable="columnNom_Produit" msprop:Generator_ColumnPropNameInRow="Nom_Produit" msprop:Generator_ColumnPropNameInTable="Nom_ProduitColumn" msprop:Generator_UserColumnName="Nom_Produit">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Top_Produit_Acheter_FRNS" msprop:Generator_TableClassName="Top_Produit_Acheter_FRNSDataTable" msprop:Generator_TableVarName="tableTop_Produit_Acheter_FRNS" msprop:Generator_TablePropName="Top_Produit_Acheter_FRNS" msprop:Generator_RowDeletingName="Top_Produit_Acheter_FRNSRowDeleting" msprop:Generator_RowChangingName="Top_Produit_Acheter_FRNSRowChanging" msprop:Generator_RowEvHandlerName="Top_Produit_Acheter_FRNSRowChangeEventHandler" msprop:Generator_RowDeletedName="Top_Produit_Acheter_FRNSRowDeleted" msprop:Generator_UserTableName="Top_Produit_Acheter_FRNS" msprop:Generator_RowChangedName="Top_Produit_Acheter_FRNSRowChanged" msprop:Generator_RowEvArgName="Top_Produit_Acheter_FRNSRowChangeEvent" msprop:Generator_RowClassName="Top_Produit_Acheter_FRNSRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Nom_Produit" msprop:Generator_ColumnVarNameInTable="columnNom_Produit" msprop:Generator_ColumnPropNameInRow="Nom_Produit" msprop:Generator_ColumnPropNameInTable="Nom_ProduitColumn" msprop:Generator_UserColumnName="Nom_Produit">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Total" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
