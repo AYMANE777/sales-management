@@ -1,9 +1,9 @@
 <div align="center">
   <h1>GESTION-VENTES-DESKTOP</h1>
   <p><em>Streamlining Sales, Inventory, and Supplier Management in a Unified Desktop App</em></p>
-  <img alt="last-commit" src="https://img.shields.io/github/last-commit/AYMANE777/Gestion-Ventes-Desktop?style=flat&logo=git&logoColor=white&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
-  <img alt="repo-top-language" src="https://img.shields.io/github/languages/top/AYMANE777/Gestion-Ventes-Desktop?style=flat&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
-  <img alt="repo-language-count" src="https://img.shields.io/github/languages/count/AYMANE777/Gestion-Ventes-Desktop?style=flat&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+  <img alt="last-commit" src="https://img.shields.io/github/last-commit/AYMANE777/sales-management?style=flat&logo=git&logoColor=white&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+  <img alt="repo-top-language" src="https://img.shields.io/github/languages/top/AYMANE777/sales-management?style=flat&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+  <img alt="repo-language-count" src="https://img.shields.io/github/languages/count/AYMANE777/sales-management?style=flat&color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
   <p><em>Built with the tools and technologies:</em></p>
   <img alt="CSharp" src="https://img.shields.io/badge/C%23-239120.svg?style=flat&logo=c-sharp&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
   <img alt="VisualStudio" src="https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=flat&logo=visual-studio&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
@@ -33,7 +33,7 @@
   <li><strong>Supplier</strong> – management.</li>
   <li><strong>Client Orders</strong> – and line-item details.</li>
   <li><strong>Supplier Orders</strong> – and purchase line items.</li>
-  <li><strong>Loginn.cs</strong> – Login/authentication logic.</li>
+  <li><strong>Login</strong> – Login/authentication logic.</li>
   <li><strong>GEST_VENTES.edmx</strong> – Entity Framework model with database schema.</li>
 </ul>
 
