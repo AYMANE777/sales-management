@@ -2,12 +2,12 @@
 <div align="center">
     <h1>SALES MANAGEMENT</h1>
     <p><em>Empowering Connections for Seamless Learning Journeys</em></p>
-    <img alt="last-commit" src="https://img.shields.io/github/last-commit/AYMANE777/sales-managemen?style=flat&amp;logo=git&amp;logoColor=white&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
-    <img alt="repo-top-language" src="https://img.shields.io/github/languages/top/AYMANE777/sales-managemen?style=flat&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
-    <img alt="repo-language-count" src="https://img.shields.io/github/languages/count/AYMANE777/sales-managemen?style=flat&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+    <img alt="last-commit" src="https://img.shields.io/github/last-commit/AYMANE777/sales-management?style=flat&amp;logo=git&amp;logoColor=white&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+    <img alt="repo-top-language" src="https://img.shields.io/github/languages/top/AYMANE777/sales-management?style=flat&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
+    <img alt="repo-language-count" src="https://img.shields.io/github/languages/count/AYMANE777/sales-management?style=flat&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
     <p><em>Built with the tools and technologies:</em></p>
     <img alt="Markdown" src="https://img.shields.io/badge/Markdown-000000.svg?style=flat&amp;logo=Markdown&amp;logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="40" height="40"/>
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" style="margin: 0px 2px;"/>
 
 </div>
 <h2>Overview</h2>
